@@ -21,15 +21,15 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) throws IOException, CsvValidationException, InterruptedException {
         SimpleGoogleTranslate translate = new SimpleGoogleTranslate();
-        CSVReader cities = new CSVReader(new FileReader("C:\\Users\\Nurs\\IdeaProjects\\untitled3\\src\\main\\java\\org\\example\\cities.csv"));
+        CSVReader jany = new CSVReader(new FileReader("C:\\Users\\Nurs\\IdeaProjects\\untitled3\\src\\main\\java\\org\\example\\jany.csv"));
 
-        ICSVWriter entity = new CSVWriterBuilder(new FileWriter("C:\\Users\\Nurs\\IdeaProjects\\untitled3\\src\\main\\java\\org\\example\\jany.csv"))
+        ICSVWriter entity = new CSVWriterBuilder(new FileWriter("C:\\Users\\Nurs\\IdeaProjects\\untitled3\\src\\main\\java\\org\\example\\entity.csv"))
                 .withSeparator(';')
                 .build();
 
-        ICSVWriter ru = new CSVWriterBuilder(new FileWriter("C:\\Users\\Nurs\\IdeaProjects\\untitled3\\src\\main\\java\\org\\example\\entity.csv"))
-                .withSeparator(';')
-                .build();
+//        ICSVWriter ru = new CSVWriterBuilder(new FileWriter("C:\\Users\\Nurs\\IdeaProjects\\untitled3\\src\\main\\java\\org\\example\\entity.csv"))
+//                .withSeparator(';')
+//                .build();
 
         String[] line;
 //        "100001";"";"Kabul";"";"";"";"";"Kabul";"Kabul";"";"";"1"
@@ -37,20 +37,20 @@ public class Main {
         List<String[]> russianLine = new ArrayList<>();
         int count = 100000;
         Connection connection = getConnection();
-        while ((line = cities.readNext()) != null) {
+        while ((line = jany.readNext()) != null) {
             line = new String[]{
-                    count++ + "","",
-                    line[1].toUpperCase(),"","","","",
-                    line[1].toUpperCase(),
-                    line[1].toUpperCase(),"","",
-                    getCountryIdByName(line[6], connection)
+//                    count++ + "","",
+//                    line[1].toUpperCase(),"","","","",
+                    line[0]
+//                    line[1].toUpperCase(),"","",
+//                    getCountryIdByName(line[6], connection)
             };
 //            russianLine.add(new String[] {line[1].toUpperCase(), translate.doTranslate(Language.en, Language.ru, "hello world")});
             entityLine.add(line);
         }
 
         entity.writeAll(entityLine);
-        ru.writeAll(russianLine);
+//        ru.writeAll(russianLine);
     }
 
     public static String getCountryIdByName(String name, Connection connection) {
